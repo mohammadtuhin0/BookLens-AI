@@ -71,7 +71,11 @@ def test_get_non_existing_book():
 
     assert response.status_code == 404
 
-    assert response.json()["detail"] == (
+    data = response.json()
+
+    assert data["success"] is False
+    assert data["error"]["code"] == "HTTP_ERROR"
+    assert data["error"]["message"] == (
         "Book with ID 999 not found"
     )
 
